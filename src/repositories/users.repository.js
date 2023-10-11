@@ -12,9 +12,9 @@ async function getAllUsers() {
 }
 
 async function getUserById(id) {
-  const reponse = await fetch(SERVER + `/users/${id}`);
-  if (!reponse.ok) {
-    throw `Error ${reponse.status} de la BBDD: ${reponse.statusText}`;
+  const response = await fetch(SERVER + `/users/${id}`);
+  if (!response.ok) {
+    throw `Error ${response.status} de la BBDD: ${response.statusText}`;
   }
   const data = await response.json();
   return data;

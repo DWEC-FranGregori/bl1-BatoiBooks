@@ -1,42 +1,52 @@
-import Module from "./module.class"
+import Module from "./module.class";
+import {
+  addModule,
+  getAllModules,
+  removeModule,
+} from "../repositories/modules.repository";
 
 export default class Modules {
   constructor() {
-    this.data = []
+    this.data = [];
   }
-  
+
   getModuleByCode(code) {
-    return this.data.find((item) => item.code === code) || {}
+    return this.data.find((item) => item.code === code) || {};
   }
 
-  populateData(payload) {
-    this.data = payload.map((item) => new Module(
-      item.code, 
-      item.cliteral, 
-      item.vliteral, 
-      item.idCourse
-    ))
+  async populateData() {
+    this.data = await getAllModules();
   }
 
-  addItem(payload) {
-    const newModule = new Module(payload.code, payload.cliteral, payload.vliteral, payload.idCourse)
-    this.data.push(newModule)
-    return newModule
+  async addItem(payload) {
+    await addModule(payload);
+    const newModule = new Module(
+      payload.code,
+      payload.cliteral,
+      payload.vliteral,
+      payload.idCourse
+    );
+    this.data.push(newModule);
+    return newModule;
   }
 
-  removeItem(code) {
-    const index = this.data.findIndex((item) => item.code === code)
+  async removeItem(code) {
+    await removeModule(code);
+    const index = this.data.findIndex((item) => item.code === code);
     if (index === -1) {
-      throw "No existe un módulo con código " + code
+      throw "No existe un módulo con código " + code;
     }
-    this.data.splice(index, 1)
-    return {}
+    this.data.splice(index, 1);
+    return {};
   }
 
   toString() {
-    let modulesToString = `Módulos (total ${this.data.length})`
-    this.data.forEach((item) => modulesToString += `
+    let modulesToString = `Módulos (total ${this.data.length})`;
+    this.data.forEach(
+      (item) =>
+        (modulesToString += `
     - ${item}`)
-    return modulesToString
+    );
+    return modulesToString;
   }
 }

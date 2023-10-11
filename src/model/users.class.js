@@ -1,21 +1,27 @@
 import User from "./user.class";
+import {
+  addUser,
+  getAllUsers,
+  getUserById,
+  removeUser,
+} from "../repositories/users.repository";
 
 export default class Users {
   constructor() {
     this.data = [];
   }
 
-  getUserById(id) {
+  async getUserById(id) {
+    await getUserById(id);
     return this.data.find((item) => item.id === id) || {};
   }
 
-  populateData(payload) {
-    this.data = payload.map(
-      (item) => new User(item.id, item.email, item.nick, item.password)
-    );
+  async populateData() {
+    this.data = await getAllUsers();
   }
 
-  addItem(payload) {
+  async addItem(payload) {
+    await addUser(payload);
     const newUser = new User(
       getNextId(this.data),
       payload.email,
@@ -26,7 +32,8 @@ export default class Users {
     return newUser;
   }
 
-  removeItem(id) {
+  async removeItem(id) {
+    await removeUser(id);
     const index = this.data.findIndex((item) => item.id === id);
     if (index === -1) {
       throw "No existe un usuario con id " + id;

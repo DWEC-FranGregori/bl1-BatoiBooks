@@ -12,9 +12,9 @@ async function getAllBooks() {
 }
 
 async function getBookById(id) {
-  const reponse = await fetch(SERVER + `/books/${id}`);
-  if (!reponse.ok) {
-    throw `Error ${reponse.status} de la BBDD: ${reponse.statusText}`;
+  const response = await fetch(SERVER + `/books/${id}`);
+  if (!response.ok) {
+    throw `Error ${response.status} de la BBDD: ${response.statusText}`;
   }
   const data = await response.json();
   return data;
@@ -55,8 +55,8 @@ async function changeBook(book, newBook) {
   return response.json();
 }
 
-async function updatePriceOfBook(id, price) {
-  const response = await fetch(SERVER + `/books/${id}`, {
+async function updatePriceOfBooks(price) {
+  const response = await fetch(SERVER + `/books`, {
     method: "PATCH", // or 'PUT'
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(price),
@@ -70,5 +70,5 @@ export {
   addBook,
   removeBook,
   changeBook,
-  updatePriceOfBook,
+  updatePriceOfBooks,
 };
