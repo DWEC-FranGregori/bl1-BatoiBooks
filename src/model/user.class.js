@@ -3,7 +3,7 @@ export default class User {
     this.id = id;
     this.email = email;
     this.nick = nick;
-    this.password = password || "";
+    this.password = password;
   }
 
   toString() {
