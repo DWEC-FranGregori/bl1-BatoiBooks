@@ -4,7 +4,7 @@ import {
   getAllUsers,
   getUserById,
   removeUser,
-} from "../repositories/users.repository";
+} from "../repositories/users.repositories";
 
 export default class Users {
   constructor() {

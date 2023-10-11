@@ -46,7 +46,7 @@ async function removeModule(code) {
   return data;
 }
 
-async function changeModue(module, newModule) {
+async function changeModule(module, newModule) {
   const response = await fetch(SERVER + `/modules/${module.code}`, {
     method: "PUT", // or 'PATCH'
     headers: { "Content-Type": "application/json" },
@@ -55,4 +55,4 @@ async function changeModue(module, newModule) {
   return response.json();
 }
 
-export { getAllModules, getBookByCode, addModule, removeModule, changeModue };
+export { getAllModules, getBookByCode, addModule, removeModule, changeModule };

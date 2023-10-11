@@ -3,7 +3,7 @@ import {
   addModule,
   getAllModules,
   removeModule,
-} from "../repositories/modules.repository";
+} from "../repositories/modules.repositories";
 
 export default class Modules {
   constructor() {

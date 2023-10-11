@@ -55,8 +55,17 @@ async function changeBook(book, newBook) {
   return response.json();
 }
 
-async function updatePriceOfBooks(price) {
+async function incrementPriceOfBooks(price) {
   const response = await fetch(SERVER + `/books`, {
+    method: "PATCH", // or 'PUT'
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(price),
+  });
+  return response.json();
+}
+
+async function updatePriceOfBook(id, price) {
+  const response = await fetch(SERVER + `/books/${id}`, {
     method: "PATCH", // or 'PUT'
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(price),
@@ -70,5 +79,6 @@ export {
   addBook,
   removeBook,
   changeBook,
-  updatePriceOfBooks,
+  incrementPriceOfBooks,
+  updatePriceOfBook,
 };

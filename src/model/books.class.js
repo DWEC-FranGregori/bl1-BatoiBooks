@@ -1,11 +1,11 @@
 import Book from "./book.class";
 import {
   getAllBooks,
-  addBook,
   getBookById,
+  addBook,
   removeBook,
-  updatePriceOfBooks,
-} from "../repositories/books.repository";
+  incrementPriceOfBooks,
+} from "../repositories/books.repositories";
 
 const NOTES = "Apunts";
 
@@ -101,7 +101,7 @@ export default class Books {
   }
 
   async incrementPriceOfbooks(increment) {
-    await updatePriceOfBooks(increment);
+    await incrementPriceOfBooks(increment);
     return this.data.map((item) => {
       item.price = item.price + item.price * increment;
       return item;
