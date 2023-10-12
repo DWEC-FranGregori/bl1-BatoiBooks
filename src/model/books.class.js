@@ -47,13 +47,15 @@ export default class Books {
     return booksToString;
   }
 
-  booksFromUser(userId) {
+  async booksFromUser(userId) {
+    await repository.getBooksFromUser(userId);
     const filteredBooks = new Books();
     filteredBooks.data = this.data.filter((item) => item.idUser === userId);
     return filteredBooks;
   }
 
-  booksFromModule(moduleId) {
+  async booksFromModule(moduleId) {
+    await repository.getBooksFromModule(moduleId);
     const filteredBooks = new Books();
     filteredBooks.data = this.data.filter((item) => item.idModule === moduleId);
     return filteredBooks;
@@ -65,7 +67,8 @@ export default class Books {
     return filteredBooks;
   }
 
-  booksWithStatus(status) {
+  async booksWithStatus(status) {
+    await repository.getBooksWithStatus(status);
     const filteredBooks = new Books();
     filteredBooks.data = this.data.filter((item) => item.status === status);
     return filteredBooks;

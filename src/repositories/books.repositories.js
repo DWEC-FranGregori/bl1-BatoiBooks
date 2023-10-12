@@ -21,6 +21,33 @@ export default class BooksRepository {
     return data;
   }
 
+  async getBooksFromUser(idUser) {
+    const response = await fetch(SERVER + `/books?idUser=${idUser}`);
+    if (!response.ok) {
+      throw `Error ${response.status} de la BBDD: ${response.statusText}`;
+    }
+    const data = await response.json();
+    return data;
+  }
+
+  async getBooksFromModule(idModule) {
+    const response = await fetch(SERVER + `/books?idModule=${idModule}`);
+    if (!response.ok) {
+      throw `Error ${response.status} de la BBDD: ${response.statusText}`;
+    }
+    const data = await response.json();
+    return data;
+  }
+
+  async getBooksWithStatus(status) {
+    const response = await fetch(SERVER + `/books?status=${status}`);
+    if (!response.ok) {
+      throw `Error ${response.status} de la BBDD: ${response.statusText}`;
+    }
+    const data = await response.json();
+    return data;
+  }
+
   async addBook(book) {
     const response = await fetch(SERVER + "/books", {
       method: "POST",

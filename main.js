@@ -30,9 +30,15 @@ console.log(books);
 console.log(modules);
 console.log(users);
 
-console.log(users.getUserById(3));
+searches();
 
-//console.log(books.booksFromUser(4));
-//console.log(books.booksFromModule("5021").booksWithStatus("good"));
-//books.booksFromModule("5025").incrementPriceOfbooks(0.1);
-//console.log(books.booksFromModule("5025"));
+async function searches() {
+  console.log(await users.getUserById(3));
+
+  console.log("TAREAS");
+  console.log(await books.booksFromUser(4));
+  const booksFromModule5021 = await books.booksFromModule("5021");
+  console.log(await booksFromModule5021.booksWithStatus("good"));
+  const booksFromModule5025 = await books.booksFromModule("5025");
+  console.log(await booksFromModule5025.incrementPriceOfbooks(0.1));
+}
