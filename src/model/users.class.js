@@ -1,10 +1,7 @@
 import User from "./user.class";
-import {
-  addUser,
-  getAllUsers,
-  getUserById,
-  removeUser,
-} from "../repositories/users.repositories";
+
+import UsersRepository from "../repositories/users.repositories";
+const repository = new UsersRepository();
 
 export default class Users {
   constructor() {
@@ -12,16 +9,16 @@ export default class Users {
   }
 
   async getUserById(id) {
-    await getUserById(id);
+    await repository.getUserById(id);
     return this.data.find((item) => item.id === id) || {};
   }
 
   async populateData() {
-    this.data = await getAllUsers();
+    this.data = await repository.getAllUsers();
   }
 
   async addItem(payload) {
-    await addUser(payload);
+    await repository.addUser(payload);
     const newUser = new User(
       getNextId(this.data),
       payload.email,
@@ -33,7 +30,7 @@ export default class Users {
   }
 
   async removeItem(id) {
-    await removeUser(id);
+    await repository.removeUser(id);
     const index = this.data.findIndex((item) => item.id === id);
     if (index === -1) {
       throw "No existe un usuario con id " + id;

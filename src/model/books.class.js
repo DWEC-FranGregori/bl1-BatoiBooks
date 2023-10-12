@@ -1,11 +1,7 @@
 import Book from "./book.class";
-import {
-  getAllBooks,
-  getBookById,
-  addBook,
-  removeBook,
-  incrementPriceOfBooks,
-} from "../repositories/books.repositories";
+
+import BooksRepository from "../repositories/books.repositories";
+const repository = new BooksRepository();
 
 const NOTES = "Apunts";
 
@@ -15,16 +11,16 @@ export default class Books {
   }
 
   async getBookById(id) {
-    await getBookById(id);
+    await repository.getBookById(id);
     return this.data.find((item) => item.id === id) || {};
   }
 
   async populateData() {
-    this.data = await getAllBooks();
+    this.data = await repository.getAllBooks();
   }
 
   async addItem(payload) {
-    await addBook(payload);
+    await repository.addBook(payload);
     payload.id = getNextId(this.data);
     const newBook = new Book(payload);
     this.data.push(newBook);
@@ -32,7 +28,7 @@ export default class Books {
   }
 
   async removeItem(id) {
-    await removeBook(id);
+    await repository.removeBook(id);
     const index = this.data.findIndex((item) => item.id === id);
     if (index === -1) {
       throw "No existe un libro con id " + id;
@@ -101,7 +97,7 @@ export default class Books {
   }
 
   async incrementPriceOfbooks(increment) {
-    await incrementPriceOfBooks(increment);
+    await repository.incrementPriceOfBooks(increment);
     return this.data.map((item) => {
       item.price = item.price + item.price * increment;
       return item;
